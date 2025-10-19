@@ -1,0 +1,45 @@
+quiml: 1.1
+controllers:
+  - name: LoginController
+    language: javascript
+    script: ../src/controllers/loginController.js
+components:
+  - VerticalBox#mainLayout:
+      spacing: 20
+      align: center
+      style: { bg: "#000000", padding: 40px }
+      components:
+        - Text3D#title:
+            text: "Login to Quantum App"
+            style: { fontSize: 24px, color: "#00AEEF", fontWeight: bold }
+            extrude: 2
+            anim: { 
+              type: [Fade, Rotate], 
+              duration: 1000ms, 
+              rotateDuration: 1000ms, 
+              direction: in
+            }
+        - Divider#separator:
+            style: { color: "#333333" }
+        - Card#credentials:
+            style: { bg: "#222222", borderRadius: 10px }
+            anim: { type: Slide, duration: 700ms, direction: in }
+            components:
+              - TextField#username:
+                  placeholder: "Username"
+                  style: { bg: "#333333", color: "#FFFFFF", borderRadius: 8px, padding: 10px }
+                  bindings:
+                    - TwoWayBinding: { source: LoginController.username, target: text }
+              - TextField#password:
+                  placeholder: "Password"
+                  secure: true
+                  style: { bg: "#333333", color: "#FFFFFF", borderRadius: 8px, padding: 10px }
+                  bindings:
+                    - TwoWayBinding: { source: LoginController.password, target: text }
+              - Divider#innerSeparator:
+                  style: { color: "#444444" }
+              - Button#submit:
+                  text: "Login"
+                  style: { bg: "#00AEEF", color: "#000000", borderRadius: 8px, padding: 15px }
+                  event: { onClick: LoginController.submit }
+                  anim: { type: Pulse, duration: 300ms, trigger: onClick }
